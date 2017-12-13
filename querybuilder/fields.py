@@ -183,6 +183,40 @@ class Field(with_metaclass(abc.ABCMeta, object)):
         """
         self.table = table
 
+    def __add__(self, other):
+        return field_operators.AddField(self, other)
+
+    def __sub__(self, other):
+        return field_operators.SubField(self, other)
+
+    def __mul__(self, other):
+        return field_operators.MulField(self, other)
+
+    def __truediv__(self, other):
+        return field_operators.DivField(self, other)
+    __div__ = __truediv__  # py2 compatible
+    __floordiv__ = __truediv__
+
+    def __eq__(self, other):
+        return field_operators.EqField(self, other)
+
+    def __ne__(self, other):
+        return field_operators.NotEqField(self, other)
+
+    def __gt__(self, other):
+        return field_operators.GtField(self, other)
+
+    def __lt__(self, other):
+        return field_operators.LtField(self, other)
+
+    def __ge__(self, other):
+        return field_operators.GteField(self, other)
+
+    def __le__(self, other):
+        return field_operators.LteField(self, other)
+
+from querybuilder import field_operators
+
 
 class SimpleField(Field):
     """

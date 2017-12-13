@@ -16,6 +16,11 @@ def get_version():
     else:
         raise RuntimeError('Unable to find version string in {0}.'.format(VERSION_FILE))
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
+with open('test_requirements.txt') as f:
+    test_requirements = f.read().splitlines()
 
 setup(
     name='django-query-builder',
@@ -43,19 +48,8 @@ setup(
         'Development Status :: 5 - Production/Stable',
     ],
     license='MIT',
-    install_requires=[
-        'Django>=1.9',
-        'pytz>=2015.6',
-        'fleming>=0.4.4',
-        'six',
-    ],
-    tests_require=[
-        'psycopg2',
-        'django-nose>=1.4',
-        'django-dynamic-fixture',
-        'jsonfield==0.9.20',
-        'mock'
-    ],
+    install_requires=requirements,
+    tests_require=test_requirements,
     test_suite='run_tests.run_tests',
     include_package_data=True,
 )
